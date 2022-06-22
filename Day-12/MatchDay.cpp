@@ -91,3 +91,36 @@ int main() {
 
 
 // Solution 2 - Using Sliding Window and deque, Time Complexity- O(n)
+
+class Solution {
+  public:
+    vector<int> max_of_subarrays(vector<int> a, int n, int k) {
+        vector<int>v;
+        deque<int>q;
+       
+        int i=0,j=0;
+        while(j<n)
+        {
+            while(q.size()>0 and q.back()<a[j])
+            q.pop_back();
+            
+            q.push_back(a[j]);
+            
+            if(j-i+1<k)
+            {
+                j++;
+            }
+            else if(j-i+1==k)
+            {
+                v.push_back(q.front());
+                
+                if(q.front()==a[i])
+                q.pop_front();
+                
+                i++;
+                j++;
+            }
+        }
+        return v;
+    }
+};
